@@ -8,7 +8,7 @@ exports = function (payload) {
   const mycollection = mongodb.db("financialhealthdatabase").collection("Users");
   
   
-    const user = "admin@123";
+    const user = query.username;
   const cod = Buffer.from(user).toString('base64')
   console.log("codeficando: " + cod);
   
@@ -19,7 +19,7 @@ exports = function (payload) {
 // }
   try {
   
-    return mycollection.findOne({"user": query.user, "password": cod}, projection)
+    return mycollection.findOne({"user": query.username, "password": cod}, projection)
       .then(result => {
         if (result) {
           return {
