@@ -1,38 +1,43 @@
-exports = async function(arg){
-  // This default function will get a value and find a document in MongoDB
-  // To see plenty more examples of what you can do with functions see: 
-  // https://www.mongodb.com/docs/atlas/app-services/functions/
-
-  // Find the name of the MongoDB service you want to use (see "Linked Data Sources" tab)
-  var serviceName = "mongodb-atlas";
-
-  // Update these to reflect your db/collection
-  var dbName = "db_name";
-  var collName = "coll_name";
-
-  // Get a collection from the context
-  var collection = context.services.get(serviceName).db(dbName).collection(collName);
-
-  var findResult;
-  try {
-    // Get a value from the context (see "Values" tab)
-    // Update this to reflect your value's name.
-    var valueName = "value_name";
-    var value = context.values.get(valueName);
-
-    // Execute a FindOne in MongoDB 
-    findResult = await collection.findOne(
-      { owner_id: context.user.id, "fieldName": value, "argField": arg},
-    );
-
-  } catch(err) {
-    console.log("Error occurred while executing findOne:", err.message);
-
-    return { error: err.message };
+exports = function (payload) {
+  const query = payload.query;
+  const projection = {
+    "user": 1,
   }
 
-  // To call other named functions:
-  // var result = context.functions.execute("function_name", arg1, arg2);
+  const mongodb = context.services.get("mongodb-atlas");
+  const mycollection = mongodb.db("financialhealthdatabase").collection("Users");
+  
+  
+    const user = "admin@123";
+  const cod = Buffer.from(user).toString('base64')
+  console.log("codeficando: " + cod);
+  
+  const dec = Buffer.from(cod, 'base64').toString()
+  console.log('decode:' + dec);
+  
+  // return mycollection.find( {"user": query.user, "password": query.password}).toArray();
+// }
+  try {
+  
+    return mycollection.findOne({"user": query.user, "password": cod}, projection)
+      .then(result => {
+        if (result) {
+          return {
+            "status": true,
+            result
 
-  return { result: findResult };
-};
+          };
+
+        } else {
+          return {
+            "status": false,
+            "message": "User not found",
+            result
+          }
+        }
+      })
+
+  } catch (error) {
+    return { msg: "Erro: " + error.message };
+  }
+}
