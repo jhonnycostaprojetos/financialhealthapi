@@ -14,7 +14,7 @@ exports = async function (payload, response) {
   };
 
   try {
-    return await requests.insertOne(dataToInsert)
+    return await requests.insertOne(dataToInsert).toArray()
       .then(result => {
         response.setStatusCode(201)
         return {
