@@ -6,20 +6,24 @@ exports = async function (payload, response) {
 
   // Crie um objeto com os dados a serem inseridos
   const dataToInsert = {
-    "description": body.username,
+    "description": body.description,
     "category": body.category,
     "status": body.status,
     "date": body.date,
     "value": body.value
   };
 
+  const projection = {
+    "description": 1,
+    "category": 2
+  }
   try {
-    return await requests.insertOne(dataToInsert)
+    return await requests.insertOne(dataToInsert, projection)
       .then(result => {
         response.setStatusCode(201)
         return {
           result,
-          dataToInsert
+
         }
       })
   } catch (error) {
