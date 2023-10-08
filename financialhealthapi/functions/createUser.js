@@ -52,9 +52,7 @@ exports = async function (payload, response) {
 
     try {
         const result = await requests.insertOne(dataToInsert);
-        return response
-            .setStatusCode(200)
-            .setBody(projection)
+        return result
 
         // if (result) {
         //     return { "msg": "Usuário inserido com sucesso!" };
