@@ -14,13 +14,14 @@ exports = async function (payload, response) {
   };
 
   try {
-    return await requests.insertOne(dataToInsert).toArray()
-      .then(result => {
-        response.setStatusCode(201)
-        return {
-          result
-        }
-      })
+    const respons = await requests.insertOne(dataToInsert);
+    return respons.toArray()
+    // .then(result => {
+    //   response.setStatusCode(201)
+    //   return {
+    //     result
+    //   }
+    // })
   } catch (error) {
     return { "msg": "Erro ao inserir o documento: " + error.message };
   }
