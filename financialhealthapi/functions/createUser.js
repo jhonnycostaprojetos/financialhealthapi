@@ -17,6 +17,7 @@ exports = async function (payload, response) {
         await requests.insertOne(dataToInsert);
         return response
             .setStatusCode(201)
+            .setBody({ "mensagem": "Criado!" })
     } catch (error) {
         return { "msg": "Erro ao inserir o documento: " + error.message };
     }
