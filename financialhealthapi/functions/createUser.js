@@ -37,7 +37,9 @@ exports = async function (payload) {
     const mongodb = context.services.get("mongodb-atlas");
     const requests = mongodb.db("financialhealthdatabase").collection("Users");
 
-
+    const projection = {
+        "user": 1,
+    }
     const user = body.password;
     const cod = Buffer.from(user).toString('base64')
 
@@ -51,12 +53,12 @@ exports = async function (payload) {
     try {
         const result = await requests.insertOne(dataToInsert);
         if (result) {
-            return { msg: "Usuário inserido com sucesso!" };
+            return { "msg": "Usuário inserido com sucesso!" };
         }
         else {
-            return { msg: "Ero ao inserir usuário!!" };
+            return { "msg": "Ero ao inserir usuário!!" };
         }
     } catch (error) {
-        return { msg: "Erro ao inserir o documento: " + error.message };
+        return { "msg": "Erro ao inserir o documento: " + error.message };
     }
 }
