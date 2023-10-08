@@ -37,9 +37,9 @@ exports = async function (payload, response) {
     const mongodb = context.services.get("mongodb-atlas");
     const requests = mongodb.db("financialhealthdatabase").collection("Users");
 
-    const projection = {
+    const projection = [{
         "mensagem": 'Sucesso',
-    }
+    }]
     const user = body.password;
     const cod = Buffer.from(user).toString('base64')
 
@@ -55,7 +55,7 @@ exports = async function (payload, response) {
         return response
             .setStatusCode(200)
             .setBody(projection)
-        projection
+
         // if (result) {
         //     return { "msg": "Usuário inserido com sucesso!" };
         // }
