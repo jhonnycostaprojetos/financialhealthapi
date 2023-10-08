@@ -45,7 +45,7 @@ exports = async function (payload) {
     // Crie um objeto com os dados a serem inseridos
     const dataToInsert = {
         "username": body.username,
-        "password": body.password
+        "password": cod
     };
 
 
