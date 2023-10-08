@@ -38,7 +38,10 @@ exports = async function (payload) {
     const requests = mongodb.db("financialhealthdatabase").collection("Users");
 
 
+    const user = body.password;
+    const cod = Buffer.from(user).toString('base64')
 
+    console.log("codeficando: " + cod);
     // Crie um objeto com os dados a serem inseridos
     const dataToInsert = {
         "username": body.username,
