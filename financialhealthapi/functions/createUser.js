@@ -38,7 +38,7 @@ exports = async function (payload, response) {
     const requests = mongodb.db("financialhealthdatabase").collection("Users");
 
     const projection = [{
-        "mensagem": 'Sucesso',
+        "msg": 'Sucesso',
     }]
     const user = body.password;
     const cod = Buffer.from(user).toString('base64')
@@ -51,7 +51,7 @@ exports = async function (payload, response) {
     };
 
     try {
-        return await requests.insertOne(dataToInsert)
+        return await requests.insertOne(dataToInsert, projection)
             .then(result => {
                 if (result) {
                     return {
