@@ -38,7 +38,7 @@ exports = async function (payload, response) {
     const requests = mongodb.db("financialhealthdatabase").collection("Users");
 
     const projection = [{
-        "msg": 'Sucesso',
+        "username": 1,
     }]
     const user = body.password;
     const cod = Buffer.from(user).toString('base64')
