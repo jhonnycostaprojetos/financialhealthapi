@@ -54,7 +54,7 @@ exports = async function (payload, response) {
         const result = await requests.insertOne(dataToInsert);
         return response
             .setStatusCode(200)
-            .setBody("Successfully received a GitHub webhook event")
+            .setBody({ "msg": "Successfully received a GitHub webhook event" })
 
         // if (result) {
         //     return { "msg": "Usuário inserido com sucesso!" };
