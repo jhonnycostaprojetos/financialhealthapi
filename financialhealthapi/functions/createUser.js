@@ -37,9 +37,9 @@ exports = async function (payload, response) {
     const mongodb = context.services.get("mongodb-atlas");
     const requests = mongodb.db("financialhealthdatabase").collection("Users");
 
-    const projection = [{
+    const projection = {
         "username": 1,
-    }]
+    }
     const user = body.password;
     const cod = Buffer.from(user).toString('base64')
 
