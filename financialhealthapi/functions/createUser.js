@@ -48,11 +48,14 @@ exports = async function (payload) {
         "password": cod
     };
 
-
-
     try {
         const result = await requests.insertOne(dataToInsert);
-        return { msg: "Documento inserido com sucesso!" };
+        if (result) {
+            return { msg: "Usuário inserido com sucesso!" };
+        }
+        else {
+            return { msg: "Ero ao inserir usuário!!" };
+        }
     } catch (error) {
         return { msg: "Erro ao inserir o documento: " + error.message };
     }
