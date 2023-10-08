@@ -51,8 +51,21 @@ exports = async function (payload, response) {
     };
 
     try {
-        const result = await requests.insertOne(dataToInsert);
-        return result
+        return await requests.insertOne(dataToInsert)
+            .then(result => {
+                if (result) {
+                    return {
+                        "msg": "Usuário inserido com sucesso!"
+
+                    };
+
+                } else {
+                    return {
+                        "msg": "Ero ao inserir usuário!!"
+                    }
+                }
+            })
+
 
         // if (result) {
         //     return { "msg": "Usuário inserido com sucesso!" };
