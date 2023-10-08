@@ -1,12 +1,18 @@
 [
     {
+        "name": "authenticate",
+        "private": false,
+        "run_as_system": true,
+        "disable_arg_logs": true
+    },
+    {
         "name": "createUser",
         "private": false,
         "run_as_system": true,
         "disable_arg_logs": true
     },
     {
-        "name": "authenticate",
+        "name": "createFixedExpenses",
         "private": false,
         "run_as_system": true,
         "disable_arg_logs": true
