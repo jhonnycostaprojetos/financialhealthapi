@@ -31,7 +31,7 @@
 //     return  "Hello World!";
 // };
 
-exports = async function (payload) {
+exports = async function (payload, response) {
     const body = EJSON.parse(payload.body.text()); // Lê o corpo da solicitação e o converte para um objeto
 
     const mongodb = context.services.get("mongodb-atlas");
@@ -52,12 +52,16 @@ exports = async function (payload) {
 
     try {
         const result = await requests.insertOne(dataToInsert);
-        if (result) {
-            return { "msg": "Usuário inserido com sucesso!" };
-        }
-        else {
-            return { "msg": "Ero ao inserir usuário!!" };
-        }
+        return response
+            .setStatusCode(200)
+            .setBody("Successfully received a GitHub webhook event")
+
+        // if (result) {
+        //     return { "msg": "Usuário inserido com sucesso!" };
+        // }
+        // else {
+        //     return { "msg": "Ero ao inserir usuário!!" };
+        // }
     } catch (error) {
         return { "msg": "Erro ao inserir o documento: " + error.message };
     }
